@@ -7,7 +7,7 @@ from scrapy.spiders import CrawlSpider, Rule
 class SiteindexSpider(CrawlSpider):
     name = 'siteIndex'
     allowed_domains = ['webact.com']
-    start_urls = ['https://webact.com/']
+    start_urls = ['https://www.webact.com/']
 
     rules = (
         Rule(LinkExtractor(allow=r'Items/'), callback='parse_item', follow=True),
