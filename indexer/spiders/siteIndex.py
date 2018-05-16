@@ -10,11 +10,18 @@ class SiteindexSpider(SitemapSpider):
     allowed_domains = ['webact.com', 'www.webact.com']
     sitemap_urls = ['https://www.webact.com/sitemap.xml']
 
+    id = 0
+    # def incrementId(self):
+    #     self.id += 1
+
     # Method for parsing items
     def parse(self, response):
+        self.id += 1
         # The list of items that are found on the particular page
         item = IndexerItem()
-        item['url_from'] = response.url
+        # incrementId
+        item['id'] = self.id
+        item['url'] = response.url
         item['title'] = ' '.join(response.css('title::text').extract()).strip()
 
         desc = response.xpath("//meta[@name='description']/@content")

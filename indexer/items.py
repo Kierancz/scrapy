@@ -9,10 +9,9 @@ import scrapy
 
 
 class IndexerItem(scrapy.Item):
+    id = scrapy.Field()
     # The source URL
-    url_from = scrapy.Field()
-    # The destination URL
-    # url_to = scrapy.Field()
+    url = scrapy.Field()
 
     # Meta tags
     title = scrapy.Field()
