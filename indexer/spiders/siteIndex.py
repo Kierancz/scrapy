@@ -9,10 +9,7 @@ class SiteindexSpider(SitemapSpider):
     name = 'siteIndex'
     allowed_domains = ['webact.com', 'www.webact.com']
     sitemap_urls = ['https://www.webact.com/sitemap.xml']
-
     id = 0
-    # def incrementId(self):
-    #     self.id += 1
 
     # Method for parsing items
     def parse(self, response):
