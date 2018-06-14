@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import scrapy
+import logging
 from scrapy.linkextractors import LinkExtractor
 from scrapy.spiders import SitemapSpider
 
@@ -7,16 +8,25 @@ from indexer.items import IndexerItem
 
 class SiteindexSpider(SitemapSpider):
     name = 'siteIndex'
-    allowed_domains = ['webact.com', 'www.webact.com']
-    sitemap_urls = ['https://www.webact.com/sitemap.xml']
-    id = 0
+
+    def __init__(self, domains, sitemap, *args, **kwargs):
+        super(SiteindexSpider, self).__init__(*args, **kwargs)
+        self.id = 0
+        self.name = 'siteIndex'
+        self.domains = domains.split(',')
+        self.sitemap = sitemap.split(',')
+
+        self.allowed_domains = self.domains
+        self.sitemap_urls = self.sitemap
+        # self.logger.info('DOMAIN self.domains: ', self.domains)
+        # self.logger.info('SITEMAP self.sitemap: ', self.sitemap)
 
     # Method for parsing items
     def parse(self, response):
+        # incrementId
         self.id += 1
         # The list of items that are found on the particular page
         item = IndexerItem()
-        # incrementId
         item['id'] = self.id
         item['url'] = response.url
         item['title'] = ' '.join(response.css('title::text').extract()).strip()
